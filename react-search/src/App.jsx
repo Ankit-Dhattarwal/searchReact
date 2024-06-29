@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import "./App.css";
 
+let timer;
 function App() {
   const [query, setQuery] = useState("");
   const [data, setData] = useState([]);
@@ -53,7 +54,14 @@ function App() {
   }, [query, page]);
 
   const handleChange = (e) => {
-    setQuery(e.target.value);
+    if (timer) {
+      clearTimeout();
+    }
+
+    timer = setTimeout(() => {
+      setQuery(e.target.value);
+      setPage(1);
+    }, 1000);
   };
   return (
     <div className="SearchContainer">
